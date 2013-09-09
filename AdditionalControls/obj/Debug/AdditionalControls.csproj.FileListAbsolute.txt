@@ -1,4 +1,0 @@
-c:\Users\mecharius\Documents\Visual Studio 2012\Projects\SerialTerminal\AdditionalControls\bin\Debug\AdditionalControls.dll
-c:\Users\mecharius\Documents\Visual Studio 2012\Projects\SerialTerminal\AdditionalControls\bin\Debug\AdditionalControls.pdb
-c:\Users\mecharius\Documents\Visual Studio 2012\Projects\SerialTerminal\AdditionalControls\obj\Debug\AdditionalControls.dll
-c:\Users\mecharius\Documents\Visual Studio 2012\Projects\SerialTerminal\AdditionalControls\obj\Debug\AdditionalControls.pdb
