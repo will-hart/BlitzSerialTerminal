@@ -17,14 +17,6 @@ namespace SerialTerminal
         internal MessageDecoderForm(TransmissionRecord logged)
         {
             InitializeComponent();
-            message = new MessageDecoder(logged);
-
-            // populate
-            this.IdLabel.Text = message.ID;
-            this.TypeLabel.Text = message.TypeOfMessage.ToString();
-            this.FlagsLabel.Text = string.Join(", ", message.Flags);
-            this.TimestampLabel.Text = message.Timestamp.ToString();
-            this.PayloadLabel.Text = message.Payload;
         }
     }
 }

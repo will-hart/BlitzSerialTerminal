@@ -86,6 +86,7 @@ namespace SerialTerminal
             }
 
             this.messageHistory.Add("");
+            this.transmissionHistory.Add(new TransmissionRecord(TransmissionType.ApplicationMessage, "Starting terminal..."));
 
             this.appendNewline = this.AppendNewlineCheckbox.Checked;
             this.resetOnConnect = this.ResetOnConnectCheckbox.Checked;
@@ -375,6 +376,29 @@ namespace SerialTerminal
             var idx = this.SentListBox.SelectedIndex;
             if (idx >= this.ReceivedListBox.Items.Count) return;
             this.ReceivedListBox.SelectedIndex = idx;
+            
+            // also handle displaying message
+            if (idx >= 0 &&
+                this.transmissionHistory[idx].TypeOfTransmission != TransmissionType.ApplicationMessage &&
+                this.transmissionHistory[idx].TypeOfTransmission != TransmissionType.ApplicationError)
+            {
+                var message = new MessageDecoder(this.transmissionHistory[idx]);
+
+                // populate
+                this.IdLabel.Text = message.ID;
+                this.TypeLabel.Text = message.TypeOfMessage.ToString();
+                this.FlagsLabel.Text = string.Join(" ", message.Flags.Select(o => o ? "Y" : "N"));
+                this.TimestampLabel.Text = message.Timestamp.ToString();
+                this.PayloadLabel.Text = message.Payload;
+            }
+            else
+            {
+                this.IdLabel.Text = string.Empty;
+                this.TypeLabel.Text = string.Empty;
+                this.FlagsLabel.Text = string.Empty;
+                this.TimestampLabel.Text = string.Empty;
+                this.PayloadLabel.Text = string.Empty;
+            }
         }
 
         private void ReceivedListBox_SelectedIndexChanged(object sender, EventArgs e)
