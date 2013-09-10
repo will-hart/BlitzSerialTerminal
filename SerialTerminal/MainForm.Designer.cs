@@ -29,14 +29,16 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.HistoryButton = new System.Windows.Forms.Button();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.SendButton = new System.Windows.Forms.Button();
             this.InputTextBox = new System.Windows.Forms.TextBox();
             this.AppendNewlineCheckbox = new System.Windows.Forms.CheckBox();
             this.ComPortComboBox = new System.Windows.Forms.ComboBox();
             this.BaudRateTextBox = new System.Windows.Forms.TextBox();
-            this.TerminalListBox = new SerialTerminal.Controls.FormattedListBox();
+            this.SentListBox = new SerialTerminal.Controls.FormattedListBox();
+            this.ReceivedListBox = new SerialTerminal.Controls.FormattedListBox();
+            this.ExportSessionButton = new System.Windows.Forms.Button();
+            this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,14 +52,15 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.HistoryButton, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.SentListBox, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.ReceivedListBox, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.ConnectButton, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.SendButton, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.InputTextBox, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.AppendNewlineCheckbox, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.ComPortComboBox, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.BaudRateTextBox, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.TerminalListBox, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.ExportSessionButton, 4, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -65,36 +68,27 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(952, 724);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // HistoryButton
-            // 
-            this.HistoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HistoryButton.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HistoryButton.Location = new System.Drawing.Point(853, 33);
-            this.HistoryButton.Name = "HistoryButton";
-            this.HistoryButton.Size = new System.Drawing.Size(94, 24);
-            this.HistoryButton.TabIndex = 10;
-            this.HistoryButton.Text = "History";
-            this.HistoryButton.UseVisualStyleBackColor = true;
-            this.HistoryButton.Click += new System.EventHandler(this.HistoryButton_Click);
-            // 
             // ConnectButton
             // 
+            this.ConnectButton.BackColor = System.Drawing.SystemColors.Control;
             this.tableLayoutPanel1.SetColumnSpan(this.ConnectButton, 2);
             this.ConnectButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ConnectButton.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConnectButton.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConnectButton.Location = new System.Drawing.Point(753, 3);
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.Size = new System.Drawing.Size(194, 24);
             this.ConnectButton.TabIndex = 2;
             this.ConnectButton.Text = "Connect";
-            this.ConnectButton.UseVisualStyleBackColor = true;
+            this.ConnectButton.UseVisualStyleBackColor = false;
             this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
             // 
             // SendButton
             // 
+            this.SendButton.BackColor = System.Drawing.SystemColors.Control;
             this.SendButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SendButton.Enabled = false;
             this.SendButton.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -103,7 +97,7 @@
             this.SendButton.Size = new System.Drawing.Size(94, 24);
             this.SendButton.TabIndex = 3;
             this.SendButton.Text = "Send";
-            this.SendButton.UseVisualStyleBackColor = true;
+            this.SendButton.UseVisualStyleBackColor = false;
             this.SendButton.Click += new System.EventHandler(this.SendHexButton_Click);
             // 
             // InputTextBox
@@ -123,12 +117,13 @@
             this.AppendNewlineCheckbox.Checked = true;
             this.AppendNewlineCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.AppendNewlineCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AppendNewlineCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AppendNewlineCheckbox.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AppendNewlineCheckbox.Location = new System.Drawing.Point(603, 33);
             this.AppendNewlineCheckbox.Name = "AppendNewlineCheckbox";
             this.AppendNewlineCheckbox.Size = new System.Drawing.Size(144, 24);
             this.AppendNewlineCheckbox.TabIndex = 5;
-            this.AppendNewlineCheckbox.Text = "Add Newline";
+            this.AppendNewlineCheckbox.Text = "Append Newline";
             this.AppendNewlineCheckbox.UseVisualStyleBackColor = true;
             this.AppendNewlineCheckbox.CheckedChanged += new System.EventHandler(this.AppendNewlineCheckbox_CheckedChanged);
             // 
@@ -155,20 +150,51 @@
             this.BaudRateTextBox.Text = "57600";
             this.BaudRateTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // TerminalListBox
+            // SentListBox
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.TerminalListBox, 5);
-            this.TerminalListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TerminalListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.TerminalListBox.Font = new System.Drawing.Font("Droid Sans Mono", 9F);
-            this.TerminalListBox.FormattingEnabled = true;
-            this.TerminalListBox.ItemHeight = 22;
-            this.TerminalListBox.Items.AddRange(new object[] {
-            "Blitz Logger Serial Terminal"});
-            this.TerminalListBox.Location = new System.Drawing.Point(3, 63);
-            this.TerminalListBox.Name = "TerminalListBox";
-            this.TerminalListBox.Size = new System.Drawing.Size(944, 658);
-            this.TerminalListBox.TabIndex = 11;
+            this.SentListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SentListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.SentListBox.Font = new System.Drawing.Font("Droid Sans Mono", 9F);
+            this.SentListBox.FormattingEnabled = true;
+            this.SentListBox.ItemHeight = 22;
+            this.SentListBox.Items.AddRange(new object[] {
+            "Sent Messages"});
+            this.SentListBox.Location = new System.Drawing.Point(3, 63);
+            this.SentListBox.Name = "SentListBox";
+            this.SentListBox.Size = new System.Drawing.Size(444, 658);
+            this.SentListBox.TabIndex = 11;
+            this.SentListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.SentListBox_DrawItem);
+            this.SentListBox.SelectedIndexChanged += new System.EventHandler(this.SentListBox_SelectedIndexChanged);
+            // 
+            // ReceivedListBox
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.ReceivedListBox, 4);
+            this.ReceivedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReceivedListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.ReceivedListBox.Font = new System.Drawing.Font("Droid Sans Mono", 9F);
+            this.ReceivedListBox.FormattingEnabled = true;
+            this.ReceivedListBox.ItemHeight = 22;
+            this.ReceivedListBox.Items.AddRange(new object[] {
+            "Received Messages"});
+            this.ReceivedListBox.Location = new System.Drawing.Point(453, 63);
+            this.ReceivedListBox.Name = "ReceivedListBox";
+            this.ReceivedListBox.Size = new System.Drawing.Size(494, 658);
+            this.ReceivedListBox.TabIndex = 12;
+            this.ReceivedListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ReceivedListBox_DrawItem);
+            this.ReceivedListBox.SelectedIndexChanged += new System.EventHandler(this.ReceivedListBox_SelectedIndexChanged);
+            // 
+            // ExportSessionButton
+            // 
+            this.ExportSessionButton.BackColor = System.Drawing.SystemColors.Control;
+            this.ExportSessionButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ExportSessionButton.Font = new System.Drawing.Font("Droid Sans", 10F);
+            this.ExportSessionButton.Location = new System.Drawing.Point(853, 33);
+            this.ExportSessionButton.Name = "ExportSessionButton";
+            this.ExportSessionButton.Size = new System.Drawing.Size(94, 24);
+            this.ExportSessionButton.TabIndex = 13;
+            this.ExportSessionButton.Text = "Export";
+            this.ExportSessionButton.UseVisualStyleBackColor = false;
+            this.ExportSessionButton.Click += new System.EventHandler(this.ExportSessionButton_Click);
             // 
             // MainForm
             // 
@@ -195,7 +221,9 @@
         private System.Windows.Forms.CheckBox AppendNewlineCheckbox;
         private System.Windows.Forms.ComboBox ComPortComboBox;
         private System.Windows.Forms.TextBox BaudRateTextBox;
-        private System.Windows.Forms.Button HistoryButton;
-        private Controls.FormattedListBox TerminalListBox;
+        private Controls.FormattedListBox SentListBox;
+        private Controls.FormattedListBox ReceivedListBox;
+        private System.Windows.Forms.Button ExportSessionButton;
+        private System.Windows.Forms.SaveFileDialog SaveFileDialog;
     }
 }

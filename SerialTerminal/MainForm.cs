@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -42,7 +43,11 @@ namespace SerialTerminal
         /// <summary>
         /// A delegate for updating the message log on the UI thread
         /// </summary>
-        /// <param name="message"></param>
+        private delegate void LogMessageDelegate(string message, bool sending);
+
+        /// <summary>
+        /// A delegate for sending on the UI thread
+        /// </summary>
         private delegate void StringDelegate(string message);
 
         /// <summary>
@@ -242,17 +247,22 @@ namespace SerialTerminal
         /// Logs a message to the terminal box
         /// </summary>
         /// <param name="message"></param>
-        void LogMessage(string message)
+        void LogMessage(string message, bool sending = true)
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new StringDelegate(this.LogMessage), message);
+                this.BeginInvoke(new LogMessageDelegate(this.LogMessage), message, sending);
                 return;
             }
 
             // add the message to the UI
-            this.TerminalListBox.Items.Add("[" + DateTime.Now.ToShortTimeString() + "] " + message);
-            this.TerminalListBox.SelectedIndex = this.TerminalListBox.Items.Count - 1;
+            var lb = sending ? this.SentListBox : this.ReceivedListBox;
+            var other = sending ? this.ReceivedListBox : this.SentListBox;
+
+            lb.Items.Add("[" + DateTime.Now.ToShortTimeString() + "] " + message);
+            lb.SelectedIndex = lb.Items.Count - 1;
+
+            other.Items.Add("");
         }
 
         /// <summary>
@@ -314,19 +324,9 @@ namespace SerialTerminal
 
             foreach (var s in split)
             {
-                this.LogMessage(" < " + s);
+                this.LogMessage(" < " + s, false);
                 this.transmissionHistory.Add(new TransmissionRecord(false, s));
             }
-        }
-        
-        /// <summary>
-        /// Invalidate the list box when an item is selected
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TerminalListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            TerminalListBox.Invalidate();
         }
 
         /// <summary>
@@ -338,6 +338,51 @@ namespace SerialTerminal
         {
             var history = new HistoryForm(this.transmissionHistory);
             history.ShowDialog();
+        }
+
+
+        /**
+         * Handlers for synchronising the two list boxes for side by side scrolling
+         */
+        private void SentListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            var idx = this.SentListBox.TopIndex;
+            if (idx >= this.ReceivedListBox.Items.Count) return;
+            this.ReceivedListBox.TopIndex = idx;
+        }
+
+        private void ReceivedListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            var idx = this.ReceivedListBox.TopIndex;
+            if (idx >= this.SentListBox.Items.Count) return;
+            this.SentListBox.TopIndex = idx;
+        }
+
+        private void SentListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var idx = this.SentListBox.SelectedIndex;
+            if (idx >= this.ReceivedListBox.Items.Count) return;
+            this.ReceivedListBox.SelectedIndex = idx;
+        }
+
+        private void ReceivedListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var idx = this.ReceivedListBox.SelectedIndex;
+            if (idx >= this.SentListBox.Items.Count) return;
+            this.SentListBox.SelectedIndex = idx;
+        }
+
+        private void ExportSessionButton_Click(object sender, EventArgs e)
+        {
+            if (this.SaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var writer = new StreamWriter(this.SaveFileDialog.FileName);
+                foreach (var transmission in this.transmissionHistory)
+                {
+                    writer.WriteLine(transmission.ToString());
+                }
+                writer.Close();
+            }
         }
     }
 }
