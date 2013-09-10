@@ -18,7 +18,15 @@ namespace SerialTerminal
             if (typeOfTransmission == TransmissionType.ReceivedMessage ||
                 typeOfTransmission == TransmissionType.SentMessage)
             {
-                this.Message = new MessageDecoder(this.RawMessage);
+                try
+                {
+                    this.Message = new MessageDecoder(this.RawMessage);
+                }
+                catch (Exception)
+                {
+                    this.TypeOfTransmission = TransmissionType.ApplicationError;
+                    this.RawMessage = "Error parsing: " + this.RawMessage;
+                }
             }
         }
 
