@@ -448,46 +448,5 @@ namespace SerialTerminal
         {
             this.resetOnConnect = this.ResetOnConnectCheckbox.Checked;
         }
-
-        /// <summary>
-        /// Handles clicking on a list box and checks if the context menu can display
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ListBox_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                // determine which item is selected
-                var lb = (SerialTerminal.Controls.FormattedListBox)sender;
-                var idx = lb.IndexFromPoint(e.Location);
-                
-                // ensure the item is selected
-                lb.SelectedIndex = idx;
-
-                // check if we should enable the context item
-                this.DecodeMessageContextItem.Enabled = false;
-                if (this.transmissionHistory[idx].TypeOfTransmission != TransmissionType.ApplicationMessage &&
-                    this.transmissionHistory[idx].TypeOfTransmission != TransmissionType.ApplicationError)
-                {
-                    this.DecodeMessageContextItem.Enabled = true;
-                    
-                }
-            }
-        }
-
-        /// <summary>
-        /// Shows a message decoding form from the currently selected item
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DecodeMessageContextItem_Click(object sender, EventArgs e)
-        {
-            // work out which item is selected (using the SentListBox is 
-            // ok as we sync the selected indices)
-            var idx = this.SentListBox.SelectedIndex;
-            var decoder = new MessageDecoderForm(this.transmissionHistory[idx]);
-            decoder.ShowDialog();
-        }
     }
 }

@@ -28,12 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.MainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.MessageLogSplitContainer = new System.Windows.Forms.SplitContainer();
             this.SentListBox = new SerialTerminal.Controls.FormattedListBox();
-            this.ListContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.DecodeMessageContextItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReceivedListBox = new SerialTerminal.Controls.FormattedListBox();
             this.MenuTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ResetOnConnectCheckbox = new System.Windows.Forms.CheckBox();
@@ -44,17 +41,6 @@
             this.ConnectButton = new System.Windows.Forms.Button();
             this.BaudRateTextBox = new System.Windows.Forms.TextBox();
             this.ComPortComboBox = new System.Windows.Forms.ComboBox();
-            this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.messageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.transmitData0x00C0ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.sendID0x0090ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.requestStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MessageDataTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ayloadHeaderLabel = new System.Windows.Forms.Label();
             this.PayloadLabel = new System.Windows.Forms.Label();
@@ -66,15 +52,25 @@
             this.TypeLabel = new System.Windows.Forms.Label();
             this.IdHeaderLabel = new System.Windows.Forms.Label();
             this.IdLabel = new System.Windows.Forms.Label();
+            this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.ApplicationMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.messageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transmitData0x00C0ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.sendID0x0090ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.requestStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MessageLogSplitContainer)).BeginInit();
             this.MessageLogSplitContainer.Panel1.SuspendLayout();
             this.MessageLogSplitContainer.Panel2.SuspendLayout();
             this.MessageLogSplitContainer.SuspendLayout();
-            this.ListContextMenu.SuspendLayout();
             this.MenuTableLayout.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.MessageDataTableLayout.SuspendLayout();
+            this.ApplicationMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTableLayout
@@ -114,7 +110,6 @@
             // 
             // SentListBox
             // 
-            this.SentListBox.ContextMenuStrip = this.ListContextMenu;
             this.SentListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SentListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.SentListBox.Font = new System.Drawing.Font("Droid Sans Mono", 9F);
@@ -128,25 +123,9 @@
             this.SentListBox.TabIndex = 12;
             this.SentListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.SentListBox_DrawItem);
             this.SentListBox.SelectedIndexChanged += new System.EventHandler(this.SentListBox_SelectedIndexChanged);
-            this.SentListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListBox_MouseDown);
-            // 
-            // ListContextMenu
-            // 
-            this.ListContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DecodeMessageContextItem});
-            this.ListContextMenu.Name = "ListContextMenu";
-            this.ListContextMenu.Size = new System.Drawing.Size(164, 26);
-            // 
-            // DecodeMessageContextItem
-            // 
-            this.DecodeMessageContextItem.Name = "DecodeMessageContextItem";
-            this.DecodeMessageContextItem.Size = new System.Drawing.Size(163, 22);
-            this.DecodeMessageContextItem.Text = "Decode Message";
-            this.DecodeMessageContextItem.Click += new System.EventHandler(this.DecodeMessageContextItem_Click);
             // 
             // ReceivedListBox
             // 
-            this.ReceivedListBox.ContextMenuStrip = this.ListContextMenu;
             this.ReceivedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ReceivedListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.ReceivedListBox.Font = new System.Drawing.Font("Droid Sans Mono", 9F);
@@ -160,7 +139,6 @@
             this.ReceivedListBox.TabIndex = 13;
             this.ReceivedListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ReceivedListBox_DrawItem);
             this.ReceivedListBox.SelectedIndexChanged += new System.EventHandler(this.ReceivedListBox_SelectedIndexChanged);
-            this.ReceivedListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListBox_MouseDown);
             // 
             // MenuTableLayout
             // 
@@ -295,86 +273,6 @@
             this.ComPortComboBox.Name = "ComPortComboBox";
             this.ComPortComboBox.Size = new System.Drawing.Size(394, 23);
             this.ComPortComboBox.TabIndex = 7;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.messageToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "&File";
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.exportToolStripMenuItem.Text = "&Export";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportSessionButton_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(104, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // messageToolStripMenuItem
-            // 
-            this.messageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.transmitData0x00C0ToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.sendID0x0090ToolStripMenuItem,
-            this.requestStatusToolStripMenuItem});
-            this.messageToolStripMenuItem.Name = "messageToolStripMenuItem";
-            this.messageToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.messageToolStripMenuItem.Text = "Message";
-            // 
-            // transmitData0x00C0ToolStripMenuItem
-            // 
-            this.transmitData0x00C0ToolStripMenuItem.Name = "transmitData0x00C0ToolStripMenuItem";
-            this.transmitData0x00C0ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.transmitData0x00C0ToolStripMenuItem.Tag = "00C0";
-            this.transmitData0x00C0ToolStripMenuItem.Text = "&Transmit Data (0x00C0)";
-            this.transmitData0x00C0ToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(194, 6);
-            // 
-            // sendID0x0090ToolStripMenuItem
-            // 
-            this.sendID0x0090ToolStripMenuItem.Name = "sendID0x0090ToolStripMenuItem";
-            this.sendID0x0090ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.sendID0x0090ToolStripMenuItem.Tag = "0090";
-            this.sendID0x0090ToolStripMenuItem.Text = "Request &ID (0x0090)";
-            this.sendID0x0090ToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
-            // 
-            // requestStatusToolStripMenuItem
-            // 
-            this.requestStatusToolStripMenuItem.Name = "requestStatusToolStripMenuItem";
-            this.requestStatusToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.requestStatusToolStripMenuItem.Tag = "0088";
-            this.requestStatusToolStripMenuItem.Text = "Request &Status (0x0088)";
-            this.requestStatusToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
             // MessageDataTableLayout
             // 
@@ -518,14 +416,94 @@
             this.IdLabel.TabIndex = 1;
             this.IdLabel.Text = " ";
             // 
+            // ApplicationMenuStrip
+            // 
+            this.ApplicationMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.messageToolStripMenuItem});
+            this.ApplicationMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.ApplicationMenuStrip.Name = "ApplicationMenuStrip";
+            this.ApplicationMenuStrip.Size = new System.Drawing.Size(1370, 24);
+            this.ApplicationMenuStrip.TabIndex = 1;
+            this.ApplicationMenuStrip.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.exportToolStripMenuItem.Text = "&Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportSessionButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(104, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // messageToolStripMenuItem
+            // 
+            this.messageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.transmitData0x00C0ToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.sendID0x0090ToolStripMenuItem,
+            this.requestStatusToolStripMenuItem});
+            this.messageToolStripMenuItem.Name = "messageToolStripMenuItem";
+            this.messageToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.messageToolStripMenuItem.Text = "Message";
+            // 
+            // transmitData0x00C0ToolStripMenuItem
+            // 
+            this.transmitData0x00C0ToolStripMenuItem.Name = "transmitData0x00C0ToolStripMenuItem";
+            this.transmitData0x00C0ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.transmitData0x00C0ToolStripMenuItem.Tag = "00C0";
+            this.transmitData0x00C0ToolStripMenuItem.Text = "&Transmit Data (0x00C0)";
+            this.transmitData0x00C0ToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(194, 6);
+            // 
+            // sendID0x0090ToolStripMenuItem
+            // 
+            this.sendID0x0090ToolStripMenuItem.Name = "sendID0x0090ToolStripMenuItem";
+            this.sendID0x0090ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.sendID0x0090ToolStripMenuItem.Tag = "0090";
+            this.sendID0x0090ToolStripMenuItem.Text = "Request &ID (0x0090)";
+            this.sendID0x0090ToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
+            // 
+            // requestStatusToolStripMenuItem
+            // 
+            this.requestStatusToolStripMenuItem.Name = "requestStatusToolStripMenuItem";
+            this.requestStatusToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.requestStatusToolStripMenuItem.Tag = "0088";
+            this.requestStatusToolStripMenuItem.Text = "Request &Status (0x0088)";
+            this.requestStatusToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 724);
             this.Controls.Add(this.MainTableLayout);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.ApplicationMenuStrip);
+            this.MainMenuStrip = this.ApplicationMenuStrip;
             this.Name = "MainForm";
             this.Text = "Blitz Serial Terminal";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -535,13 +513,12 @@
             this.MessageLogSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MessageLogSplitContainer)).EndInit();
             this.MessageLogSplitContainer.ResumeLayout(false);
-            this.ListContextMenu.ResumeLayout(false);
             this.MenuTableLayout.ResumeLayout(false);
             this.MenuTableLayout.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.MessageDataTableLayout.ResumeLayout(false);
             this.MessageDataTableLayout.PerformLayout();
+            this.ApplicationMenuStrip.ResumeLayout(false);
+            this.ApplicationMenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -551,7 +528,7 @@
 
         private System.Windows.Forms.TableLayoutPanel MainTableLayout;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip ApplicationMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -573,8 +550,6 @@
         private System.Windows.Forms.Button SendButton;
         private System.Windows.Forms.CheckBox AppendNewlineCheckbox;
         private System.Windows.Forms.CheckBox ResetOnConnectCheckbox;
-        private System.Windows.Forms.ContextMenuStrip ListContextMenu;
-        private System.Windows.Forms.ToolStripMenuItem DecodeMessageContextItem;
         private System.Windows.Forms.TableLayoutPanel MessageDataTableLayout;
         private System.Windows.Forms.Label ayloadHeaderLabel;
         private System.Windows.Forms.Label PayloadLabel;
