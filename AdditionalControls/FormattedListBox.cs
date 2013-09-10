@@ -55,7 +55,8 @@ namespace SerialTerminal.Controls
             }
             else if (header == '<')
             {
-                backCol = Color.LightGoldenrodYellow;
+                backCol = Color.RoyalBlue;//Color.LightGoldenrodYellow;
+                foreCol = Color.White;
             }
             else if (header == '!')
             {
@@ -71,6 +72,11 @@ namespace SerialTerminal.Controls
             {
                 backCol = Color.Black;
                 foreCol = Color.White;
+            }
+
+            if (text == string.Empty)
+            {
+                backCol = Color.LightGray;
             }
 
             g.FillRectangle(new SolidBrush(backCol), e.Bounds);
