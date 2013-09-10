@@ -259,10 +259,9 @@ namespace SerialTerminal
             var lb = sending ? this.SentListBox : this.ReceivedListBox;
             var other = sending ? this.ReceivedListBox : this.SentListBox;
 
+            other.Items.Add("");
             lb.Items.Add("[" + DateTime.Now.ToShortTimeString() + "] " + message);
             lb.SelectedIndex = lb.Items.Count - 1;
-
-            other.Items.Add("");
         }
 
         /// <summary>
@@ -308,7 +307,7 @@ namespace SerialTerminal
 
             // otherwise split into chunks and process
             var split = this.serialBuffer.Split(
-                new string[] {Environment.NewLine },
+                new string[] { Environment.NewLine },
                 StringSplitOptions.RemoveEmptyEntries);
 
             // work out if we had a trailing newline and handle it
@@ -328,18 +327,6 @@ namespace SerialTerminal
                 this.transmissionHistory.Add(new TransmissionRecord(false, s));
             }
         }
-
-        /// <summary>
-        /// Show the history form
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HistoryButton_Click(object sender, EventArgs e)
-        {
-            var history = new HistoryForm(this.transmissionHistory);
-            history.ShowDialog();
-        }
-
 
         /**
          * Handlers for synchronising the two list boxes for side by side scrolling
@@ -372,6 +359,11 @@ namespace SerialTerminal
             this.SentListBox.SelectedIndex = idx;
         }
 
+        /// <summary>
+        /// Exports the last session's data to the given file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExportSessionButton_Click(object sender, EventArgs e)
         {
             if (this.SaveFileDialog.ShowDialog() == DialogResult.OK)
@@ -383,6 +375,24 @@ namespace SerialTerminal
                 }
                 writer.Close();
             }
+        }
+
+        /// <summary>
+        /// Goodbye cruel world
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void InsertMessageToolBarItem_Click(object sender, EventArgs e)
+        {
+            var insertText = ((ToolStripMenuItem)sender).Tag.ToString();
+            var selectionIndex = this.InputTextBox.SelectionStart;
+            this.InputTextBox.Text = this.InputTextBox.Text.Insert(selectionIndex, insertText);
+            this.InputTextBox.SelectionStart = selectionIndex + insertText.Length;
         }
     }
 }
