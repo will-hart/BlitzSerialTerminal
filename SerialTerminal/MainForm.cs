@@ -387,6 +387,7 @@ namespace SerialTerminal
                 // populate
                 this.IdLabel.Text = message.ID;
                 this.TypeLabel.Text = message.TypeOfMessage.ToString();
+                this.InstructionTypeLabel.Text = message.TypeOfInstruction.ToString().Replace("_", " ");
                 this.FlagsLabel.Text = string.Join(" ", message.Flags.Select(o => o ? "Y" : "N"));
                 this.TimestampLabel.Text = message.Timestamp.ToString();
                 this.PayloadLabel.Text = message.Payload;
@@ -395,6 +396,7 @@ namespace SerialTerminal
             {
                 this.IdLabel.Text = string.Empty;
                 this.TypeLabel.Text = string.Empty;
+                this.InstructionTypeLabel.Text = string.Empty;
                 this.FlagsLabel.Text = string.Empty;
                 this.TimestampLabel.Text = string.Empty;
                 this.PayloadLabel.Text = string.Empty;

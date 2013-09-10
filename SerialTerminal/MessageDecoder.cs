@@ -31,11 +31,23 @@ namespace SerialTerminal
             {
                 var meta = Convert.ToInt16(msg[2].ToString() + msg[3].ToString(), 16);
                 this.TypeOfMessage = (MessageType)(meta >> 5);
+                
+                // if it is an instruction get the type before we bust up the flags
+                if (this.TypeOfMessage == MessageType.Instruction)
+                {
+                    this.TypeOfInstruction = (InstructionType)(meta & 0x1F);
+                }
+                else
+                {
+                    this.TypeOfInstruction = InstructionType.None;
+                }
+                
                 for (var i = 4; i >= 0; --i)
                 {
                     this.Flags[i] = (meta & 1) == 1;
                     meta >>= 1;
                 }
+
             }
 
             // get the timestamp
@@ -93,6 +105,15 @@ namespace SerialTerminal
         /// The message payload
         /// </summary>
         internal string Payload
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// If this is an instruction, what type is it???
+        /// </summary>
+        internal InstructionType TypeOfInstruction
         {
             get;
             set;

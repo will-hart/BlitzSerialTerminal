@@ -63,6 +63,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.sendID0x0090ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.requestStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.InstructionTypeHeaderLabel = new System.Windows.Forms.Label();
+            this.InstructionTypeLabel = new System.Windows.Forms.Label();
             this.MainTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MessageLogSplitContainer)).BeginInit();
             this.MessageLogSplitContainer.Panel1.SuspendLayout();
@@ -279,12 +281,14 @@
             this.MessageDataTableLayout.ColumnCount = 2;
             this.MessageDataTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.MessageDataTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.MessageDataTableLayout.Controls.Add(this.ayloadHeaderLabel, 0, 4);
-            this.MessageDataTableLayout.Controls.Add(this.PayloadLabel, 1, 4);
-            this.MessageDataTableLayout.Controls.Add(this.TimestampHeaderLabel, 0, 3);
-            this.MessageDataTableLayout.Controls.Add(this.TimestampLabel, 1, 3);
-            this.MessageDataTableLayout.Controls.Add(this.FlagsHeaderLabel, 0, 2);
-            this.MessageDataTableLayout.Controls.Add(this.FlagsLabel, 1, 2);
+            this.MessageDataTableLayout.Controls.Add(this.InstructionTypeLabel, 1, 2);
+            this.MessageDataTableLayout.Controls.Add(this.InstructionTypeHeaderLabel, 0, 2);
+            this.MessageDataTableLayout.Controls.Add(this.ayloadHeaderLabel, 0, 5);
+            this.MessageDataTableLayout.Controls.Add(this.PayloadLabel, 1, 5);
+            this.MessageDataTableLayout.Controls.Add(this.TimestampHeaderLabel, 0, 4);
+            this.MessageDataTableLayout.Controls.Add(this.TimestampLabel, 1, 4);
+            this.MessageDataTableLayout.Controls.Add(this.FlagsHeaderLabel, 0, 3);
+            this.MessageDataTableLayout.Controls.Add(this.FlagsLabel, 1, 3);
             this.MessageDataTableLayout.Controls.Add(this.TypeHeaderLabel, 0, 1);
             this.MessageDataTableLayout.Controls.Add(this.TypeLabel, 1, 1);
             this.MessageDataTableLayout.Controls.Add(this.IdHeaderLabel, 0, 0);
@@ -292,12 +296,14 @@
             this.MessageDataTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MessageDataTableLayout.Location = new System.Drawing.Point(1030, 73);
             this.MessageDataTableLayout.Name = "MessageDataTableLayout";
-            this.MessageDataTableLayout.RowCount = 5;
+            this.MessageDataTableLayout.RowCount = 6;
             this.MessageDataTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.MessageDataTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.MessageDataTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.MessageDataTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.MessageDataTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.MessageDataTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.MessageDataTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MessageDataTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.MessageDataTableLayout.Size = new System.Drawing.Size(337, 634);
             this.MessageDataTableLayout.TabIndex = 17;
             // 
@@ -306,9 +312,9 @@
             this.ayloadHeaderLabel.AutoSize = true;
             this.ayloadHeaderLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ayloadHeaderLabel.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ayloadHeaderLabel.Location = new System.Drawing.Point(3, 120);
+            this.ayloadHeaderLabel.Location = new System.Drawing.Point(3, 150);
             this.ayloadHeaderLabel.Name = "ayloadHeaderLabel";
-            this.ayloadHeaderLabel.Size = new System.Drawing.Size(111, 514);
+            this.ayloadHeaderLabel.Size = new System.Drawing.Size(111, 484);
             this.ayloadHeaderLabel.TabIndex = 8;
             this.ayloadHeaderLabel.Text = "Payload";
             this.ayloadHeaderLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -318,9 +324,9 @@
             this.PayloadLabel.AutoSize = true;
             this.PayloadLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PayloadLabel.Font = new System.Drawing.Font("Droid Sans Mono", 10F);
-            this.PayloadLabel.Location = new System.Drawing.Point(120, 120);
+            this.PayloadLabel.Location = new System.Drawing.Point(120, 150);
             this.PayloadLabel.Name = "PayloadLabel";
-            this.PayloadLabel.Size = new System.Drawing.Size(214, 514);
+            this.PayloadLabel.Size = new System.Drawing.Size(214, 484);
             this.PayloadLabel.TabIndex = 9;
             this.PayloadLabel.Text = " ";
             // 
@@ -329,9 +335,9 @@
             this.TimestampHeaderLabel.AutoSize = true;
             this.TimestampHeaderLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TimestampHeaderLabel.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimestampHeaderLabel.Location = new System.Drawing.Point(3, 90);
+            this.TimestampHeaderLabel.Location = new System.Drawing.Point(3, 119);
             this.TimestampHeaderLabel.Name = "TimestampHeaderLabel";
-            this.TimestampHeaderLabel.Size = new System.Drawing.Size(111, 30);
+            this.TimestampHeaderLabel.Size = new System.Drawing.Size(111, 31);
             this.TimestampHeaderLabel.TabIndex = 6;
             this.TimestampHeaderLabel.Text = "Timestamp";
             this.TimestampHeaderLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -341,9 +347,9 @@
             this.TimestampLabel.AutoSize = true;
             this.TimestampLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TimestampLabel.Font = new System.Drawing.Font("Droid Sans Mono", 10F);
-            this.TimestampLabel.Location = new System.Drawing.Point(120, 90);
+            this.TimestampLabel.Location = new System.Drawing.Point(120, 119);
             this.TimestampLabel.Name = "TimestampLabel";
-            this.TimestampLabel.Size = new System.Drawing.Size(214, 30);
+            this.TimestampLabel.Size = new System.Drawing.Size(214, 31);
             this.TimestampLabel.TabIndex = 7;
             this.TimestampLabel.Text = " ";
             // 
@@ -352,9 +358,9 @@
             this.FlagsHeaderLabel.AutoSize = true;
             this.FlagsHeaderLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FlagsHeaderLabel.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FlagsHeaderLabel.Location = new System.Drawing.Point(3, 60);
+            this.FlagsHeaderLabel.Location = new System.Drawing.Point(3, 90);
             this.FlagsHeaderLabel.Name = "FlagsHeaderLabel";
-            this.FlagsHeaderLabel.Size = new System.Drawing.Size(111, 30);
+            this.FlagsHeaderLabel.Size = new System.Drawing.Size(111, 29);
             this.FlagsHeaderLabel.TabIndex = 4;
             this.FlagsHeaderLabel.Text = "Flags";
             this.FlagsHeaderLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -364,9 +370,9 @@
             this.FlagsLabel.AutoSize = true;
             this.FlagsLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FlagsLabel.Font = new System.Drawing.Font("Droid Sans Mono", 10F);
-            this.FlagsLabel.Location = new System.Drawing.Point(120, 60);
+            this.FlagsLabel.Location = new System.Drawing.Point(120, 90);
             this.FlagsLabel.Name = "FlagsLabel";
-            this.FlagsLabel.Size = new System.Drawing.Size(214, 30);
+            this.FlagsLabel.Size = new System.Drawing.Size(214, 29);
             this.FlagsLabel.TabIndex = 5;
             this.FlagsLabel.Text = " ";
             // 
@@ -496,6 +502,29 @@
             this.requestStatusToolStripMenuItem.Text = "Request &Status (0x0088)";
             this.requestStatusToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
+            // InstructionTypeHeaderLabel
+            // 
+            this.InstructionTypeHeaderLabel.AutoSize = true;
+            this.InstructionTypeHeaderLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InstructionTypeHeaderLabel.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionTypeHeaderLabel.Location = new System.Drawing.Point(3, 60);
+            this.InstructionTypeHeaderLabel.Name = "InstructionTypeHeaderLabel";
+            this.InstructionTypeHeaderLabel.Size = new System.Drawing.Size(111, 30);
+            this.InstructionTypeHeaderLabel.TabIndex = 10;
+            this.InstructionTypeHeaderLabel.Text = "Instruction";
+            this.InstructionTypeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // InstructionTypeLabel
+            // 
+            this.InstructionTypeLabel.AutoSize = true;
+            this.InstructionTypeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InstructionTypeLabel.Font = new System.Drawing.Font("Droid Sans Mono", 10F);
+            this.InstructionTypeLabel.Location = new System.Drawing.Point(120, 60);
+            this.InstructionTypeLabel.Name = "InstructionTypeLabel";
+            this.InstructionTypeLabel.Size = new System.Drawing.Size(214, 30);
+            this.InstructionTypeLabel.TabIndex = 11;
+            this.InstructionTypeLabel.Text = " ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -561,5 +590,7 @@
         private System.Windows.Forms.Label TypeLabel;
         private System.Windows.Forms.Label IdHeaderLabel;
         private System.Windows.Forms.Label IdLabel;
+        private System.Windows.Forms.Label InstructionTypeLabel;
+        private System.Windows.Forms.Label InstructionTypeHeaderLabel;
     }
 }
