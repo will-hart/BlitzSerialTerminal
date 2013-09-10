@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.MainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.MessageLogSplitContainer = new System.Windows.Forms.SplitContainer();
             this.SentListBox = new SerialTerminal.Controls.FormattedListBox();
+            this.ListContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DecodeMessageContextItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReceivedListBox = new SerialTerminal.Controls.FormattedListBox();
             this.MenuTableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.ResetOnConnectCheckbox = new System.Windows.Forms.CheckBox();
             this.ExportSessionButton = new System.Windows.Forms.Button();
             this.SendButton = new System.Windows.Forms.Button();
             this.InputTextBox = new System.Windows.Forms.TextBox();
@@ -51,12 +55,12 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.sendID0x0090ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.requestStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ResetOnConnectCheckbox = new System.Windows.Forms.CheckBox();
             this.MainTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MessageLogSplitContainer)).BeginInit();
             this.MessageLogSplitContainer.Panel1.SuspendLayout();
             this.MessageLogSplitContainer.Panel2.SuspendLayout();
             this.MessageLogSplitContainer.SuspendLayout();
+            this.ListContextMenu.SuspendLayout();
             this.MenuTableLayout.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -96,6 +100,7 @@
             // 
             // SentListBox
             // 
+            this.SentListBox.ContextMenuStrip = this.ListContextMenu;
             this.SentListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SentListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.SentListBox.Font = new System.Drawing.Font("Droid Sans Mono", 9F);
@@ -109,9 +114,25 @@
             this.SentListBox.TabIndex = 12;
             this.SentListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.SentListBox_DrawItem);
             this.SentListBox.SelectedIndexChanged += new System.EventHandler(this.SentListBox_SelectedIndexChanged);
+            this.SentListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListBox_MouseDown);
+            // 
+            // ListContextMenu
+            // 
+            this.ListContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DecodeMessageContextItem});
+            this.ListContextMenu.Name = "ListContextMenu";
+            this.ListContextMenu.Size = new System.Drawing.Size(164, 26);
+            // 
+            // DecodeMessageContextItem
+            // 
+            this.DecodeMessageContextItem.Name = "DecodeMessageContextItem";
+            this.DecodeMessageContextItem.Size = new System.Drawing.Size(163, 22);
+            this.DecodeMessageContextItem.Text = "Decode Message";
+            this.DecodeMessageContextItem.Click += new System.EventHandler(this.DecodeMessageContextItem_Click);
             // 
             // ReceivedListBox
             // 
+            this.ReceivedListBox.ContextMenuStrip = this.ListContextMenu;
             this.ReceivedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ReceivedListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.ReceivedListBox.Font = new System.Drawing.Font("Droid Sans Mono", 9F);
@@ -125,6 +146,7 @@
             this.ReceivedListBox.TabIndex = 13;
             this.ReceivedListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ReceivedListBox_DrawItem);
             this.ReceivedListBox.SelectedIndexChanged += new System.EventHandler(this.ReceivedListBox_SelectedIndexChanged);
+            this.ReceivedListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListBox_MouseDown);
             // 
             // MenuTableLayout
             // 
@@ -151,6 +173,22 @@
             this.MenuTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.MenuTableLayout.Size = new System.Drawing.Size(1364, 64);
             this.MenuTableLayout.TabIndex = 16;
+            // 
+            // ResetOnConnectCheckbox
+            // 
+            this.ResetOnConnectCheckbox.AutoSize = true;
+            this.ResetOnConnectCheckbox.Checked = true;
+            this.ResetOnConnectCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ResetOnConnectCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ResetOnConnectCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ResetOnConnectCheckbox.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetOnConnectCheckbox.Location = new System.Drawing.Point(603, 3);
+            this.ResetOnConnectCheckbox.Name = "ResetOnConnectCheckbox";
+            this.ResetOnConnectCheckbox.Size = new System.Drawing.Size(144, 26);
+            this.ResetOnConnectCheckbox.TabIndex = 15;
+            this.ResetOnConnectCheckbox.Text = "Reset on Connect";
+            this.ResetOnConnectCheckbox.UseVisualStyleBackColor = true;
+            this.ResetOnConnectCheckbox.CheckedChanged += new System.EventHandler(this.ResetOnConnectCheckbox_CheckedChanged);
             // 
             // ExportSessionButton
             // 
@@ -323,22 +361,6 @@
             this.requestStatusToolStripMenuItem.Text = "Request &Status (0x0088)";
             this.requestStatusToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
-            // ResetOnConnectCheckbox
-            // 
-            this.ResetOnConnectCheckbox.AutoSize = true;
-            this.ResetOnConnectCheckbox.Checked = true;
-            this.ResetOnConnectCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ResetOnConnectCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ResetOnConnectCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ResetOnConnectCheckbox.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResetOnConnectCheckbox.Location = new System.Drawing.Point(603, 3);
-            this.ResetOnConnectCheckbox.Name = "ResetOnConnectCheckbox";
-            this.ResetOnConnectCheckbox.Size = new System.Drawing.Size(144, 26);
-            this.ResetOnConnectCheckbox.TabIndex = 15;
-            this.ResetOnConnectCheckbox.Text = "Reset on Connect";
-            this.ResetOnConnectCheckbox.UseVisualStyleBackColor = true;
-            this.ResetOnConnectCheckbox.CheckedChanged += new System.EventHandler(this.ResetOnConnectCheckbox_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -356,6 +378,7 @@
             this.MessageLogSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MessageLogSplitContainer)).EndInit();
             this.MessageLogSplitContainer.ResumeLayout(false);
+            this.ListContextMenu.ResumeLayout(false);
             this.MenuTableLayout.ResumeLayout(false);
             this.MenuTableLayout.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -391,5 +414,7 @@
         private System.Windows.Forms.Button SendButton;
         private System.Windows.Forms.CheckBox AppendNewlineCheckbox;
         private System.Windows.Forms.CheckBox ResetOnConnectCheckbox;
+        private System.Windows.Forms.ContextMenuStrip ListContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem DecodeMessageContextItem;
     }
 }

@@ -48,7 +48,7 @@ namespace SerialTerminal
         /// <summary>
         /// A delegate for updating the message log on the UI thread
         /// </summary>
-        private delegate void LogMessageDelegate(string message, bool sending);
+        private delegate void LogMessageDelegate(string message, TransmissionType transmissionType);
 
         /// <summary>
         /// A delegate for sending on the UI thread
@@ -100,7 +100,9 @@ namespace SerialTerminal
         private void AppendNewlineCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             this.appendNewline = this.AppendNewlineCheckbox.Checked;
-            this.LogMessage(" - Newlines will " + (this.appendNewline ? "now" : "not") + " be appended to messages");
+            this.LogMessage("Newlines will " + 
+                (this.appendNewline ? "now" : "not") + " be appended to messages",
+                TransmissionType.ApplicationMessage);
         }
 
         /// <summary>
@@ -116,6 +118,28 @@ namespace SerialTerminal
             if (this.ConnectButton.Text == "Disconnect") {
                 this.ConnectButton.Text = "Connect";
             } else {
+                // update the UI
+                this.ConnectButton.Text = "Disconnect";
+
+                // clear the transaction record from the last session
+                this.transmissionHistory.Clear();
+                this.transmissionHistory.Add(new TransmissionRecord(TransmissionType.ApplicationMessage, "Connecting..."));
+                this.SentListBox.Items.Clear();
+                this.SentListBox.Items.Add("Sent Messages");
+                this.ReceivedListBox.Items.Clear();
+                this.ReceivedListBox.Items.Add("Received Messages");
+
+                // log the message
+                this.LogMessage("Connected to serial port on " +
+                        this.ComPortComboBox.SelectedItem.ToString() + " @ " +
+                        this.BaudRateTextBox.Text,
+                        TransmissionType.ApplicationMessage);
+
+                // sort out the buttons
+                this.ComPortComboBox.Enabled = false;
+                this.SendButton.Enabled = true;
+                this.InputTextBox.Focus();
+                
                 // open a new serial port
                 this.serialPort = new SerialPort(this.ComPortComboBox.SelectedItem.ToString(), int.Parse(this.BaudRateTextBox.Text));
 
@@ -140,17 +164,6 @@ namespace SerialTerminal
                     this.serialPort.DtrEnable = !this.serialPort.DtrEnable; // toggle DTR for a reset 
                     this.serialPort.DtrEnable = !this.serialPort.DtrEnable;
                 }
-
-                // update the UI
-                this.ConnectButton.Text = "Disconnect";
-                this.LogMessage(" - Connected to serial port on " + this.ComPortComboBox.SelectedItem.ToString() + " @ " + this.BaudRateTextBox.Text);
-
-                // clear the transaction record from the last session
-                this.transmissionHistory.Clear();
-
-                this.ComPortComboBox.Enabled = false;
-                this.SendButton.Enabled = true;
-                this.InputTextBox.Focus();
             }
         }
 
@@ -168,7 +181,7 @@ namespace SerialTerminal
 
                 this.serialPort = null;
 
-                this.LogMessage(" - Disconnected from serial port");
+                this.LogMessage("Disconnected from serial port", TransmissionType.ApplicationMessage);
             }
 
             this.ComPortComboBox.Enabled = true;
@@ -239,15 +252,14 @@ namespace SerialTerminal
                 }
 
                 // log the sent message
-                this.transmissionHistory.Add(new TransmissionRecord(true, message));
-                this.LogMessage(" > " + message);
+                this.LogMessage(message, TransmissionType.SentMessage);
 
                 // empty the text box
                 this.InputTextBox.Text = "";
             }
             else
             {
-                this.LogMessage(" ! Unable to send serial - no serial connection");
+                this.LogMessage("Unable to send serial - no serial connection", TransmissionType.ApplicationError);
             }
 
             this.InputTextBox.Focus();
@@ -257,20 +269,24 @@ namespace SerialTerminal
         /// Logs a message to the terminal box
         /// </summary>
         /// <param name="message"></param>
-        void LogMessage(string message, bool sending = true)
+        void LogMessage(string message, TransmissionType transmissionType)
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new LogMessageDelegate(this.LogMessage), message, sending);
+                this.BeginInvoke(new LogMessageDelegate(this.LogMessage), message, transmissionType);
                 return;
             }
 
+            // create a new transmission record
+            var record = new TransmissionRecord(transmissionType, message);
+            this.transmissionHistory.Add(record);
+
             // add the message to the UI
-            var lb = sending ? this.SentListBox : this.ReceivedListBox;
-            var other = sending ? this.ReceivedListBox : this.SentListBox;
+            var lb = transmissionType == TransmissionType.ReceivedMessage ? this.ReceivedListBox : this.SentListBox;
+            var other = transmissionType == TransmissionType.ReceivedMessage ? this.SentListBox : this.ReceivedListBox;
 
             other.Items.Add("");
-            lb.Items.Add("[" + DateTime.Now.ToShortTimeString() + "] " + message);
+            lb.Items.Add(record.ToString());
             lb.SelectedIndex = lb.Items.Count - 1;
         }
 
@@ -333,8 +349,7 @@ namespace SerialTerminal
 
             foreach (var s in split)
             {
-                this.LogMessage(" < " + s, false);
-                this.transmissionHistory.Add(new TransmissionRecord(false, s));
+                this.LogMessage(s, TransmissionType.ReceivedMessage);
             }
         }
 
@@ -407,7 +422,48 @@ namespace SerialTerminal
 
         private void ResetOnConnectCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            this.resetOnConnect = this.ResetOnConnectCheckbox.Checked; 
+            this.resetOnConnect = this.ResetOnConnectCheckbox.Checked;
+        }
+
+        /// <summary>
+        /// Handles clicking on a list box and checks if the context menu can display
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                // determine which item is selected
+                var lb = (SerialTerminal.Controls.FormattedListBox)sender;
+                var idx = lb.IndexFromPoint(e.Location);
+                
+                // ensure the item is selected
+                lb.SelectedIndex = idx;
+
+                // check if we should enable the context item
+                this.DecodeMessageContextItem.Enabled = false;
+                if (this.transmissionHistory[idx].TypeOfTransmission != TransmissionType.ApplicationMessage &&
+                    this.transmissionHistory[idx].TypeOfTransmission != TransmissionType.ApplicationError)
+                {
+                    this.DecodeMessageContextItem.Enabled = true;
+                    
+                }
+            }
+        }
+
+        /// <summary>
+        /// Shows a message decoding form from the currently selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DecodeMessageContextItem_Click(object sender, EventArgs e)
+        {
+            // work out which item is selected (using the SentListBox is 
+            // ok as we sync the selected indices)
+            var idx = this.SentListBox.SelectedIndex;
+            var decoder = new MessageDecoderForm(this.transmissionHistory[idx]);
+            decoder.ShowDialog();
         }
     }
 }
