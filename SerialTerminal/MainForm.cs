@@ -201,6 +201,8 @@ namespace SerialTerminal
                 this.historyIndex += up ? 1 : -1;
                 this.InputTextBox.Text = this.messageHistory[this.historyIndex];
                 this.InputTextBox.SelectAll();
+                this.InputTextBox.Focus();
+                e.Handled = true;
             }
         }
 
@@ -402,7 +404,8 @@ namespace SerialTerminal
             var insertText = ((ToolStripMenuItem)sender).Tag.ToString();
             var selectionIndex = this.InputTextBox.SelectionStart;
             this.InputTextBox.Text = this.InputTextBox.Text.Insert(selectionIndex, insertText);
-            this.InputTextBox.SelectionStart = selectionIndex + insertText.Length;
+            this.InputTextBox.SelectionLength = insertText.Length;
+            this.InputTextBox.Focus();
         }
 
         private void ResetOnConnectCheckbox_CheckedChanged(object sender, EventArgs e)

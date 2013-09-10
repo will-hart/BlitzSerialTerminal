@@ -33,6 +33,7 @@
             this.SentListBox = new SerialTerminal.Controls.FormattedListBox();
             this.ReceivedListBox = new SerialTerminal.Controls.FormattedListBox();
             this.MenuTableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.ResetOnConnectCheckbox = new System.Windows.Forms.CheckBox();
             this.ExportSessionButton = new System.Windows.Forms.Button();
             this.SendButton = new System.Windows.Forms.Button();
             this.InputTextBox = new System.Windows.Forms.TextBox();
@@ -51,7 +52,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.sendID0x0090ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.requestStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ResetOnConnectCheckbox = new System.Windows.Forms.CheckBox();
             this.MainTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MessageLogSplitContainer)).BeginInit();
             this.MessageLogSplitContainer.Panel1.SuspendLayout();
@@ -151,6 +151,22 @@
             this.MenuTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.MenuTableLayout.Size = new System.Drawing.Size(1364, 64);
             this.MenuTableLayout.TabIndex = 16;
+            // 
+            // ResetOnConnectCheckbox
+            // 
+            this.ResetOnConnectCheckbox.AutoSize = true;
+            this.ResetOnConnectCheckbox.Checked = true;
+            this.ResetOnConnectCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ResetOnConnectCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ResetOnConnectCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ResetOnConnectCheckbox.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetOnConnectCheckbox.Location = new System.Drawing.Point(603, 3);
+            this.ResetOnConnectCheckbox.Name = "ResetOnConnectCheckbox";
+            this.ResetOnConnectCheckbox.Size = new System.Drawing.Size(144, 26);
+            this.ResetOnConnectCheckbox.TabIndex = 15;
+            this.ResetOnConnectCheckbox.Text = "Reset on Connect";
+            this.ResetOnConnectCheckbox.UseVisualStyleBackColor = true;
+            this.ResetOnConnectCheckbox.CheckedChanged += new System.EventHandler(this.ResetOnConnectCheckbox_CheckedChanged);
             // 
             // ExportSessionButton
             // 
@@ -322,22 +338,6 @@
             this.requestStatusToolStripMenuItem.Tag = "0088";
             this.requestStatusToolStripMenuItem.Text = "Request &Status (0x0088)";
             this.requestStatusToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
-            // 
-            // ResetOnConnectCheckbox
-            // 
-            this.ResetOnConnectCheckbox.AutoSize = true;
-            this.ResetOnConnectCheckbox.Checked = true;
-            this.ResetOnConnectCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ResetOnConnectCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ResetOnConnectCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ResetOnConnectCheckbox.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResetOnConnectCheckbox.Location = new System.Drawing.Point(603, 3);
-            this.ResetOnConnectCheckbox.Name = "ResetOnConnectCheckbox";
-            this.ResetOnConnectCheckbox.Size = new System.Drawing.Size(144, 26);
-            this.ResetOnConnectCheckbox.TabIndex = 15;
-            this.ResetOnConnectCheckbox.Text = "Reset on Connect";
-            this.ResetOnConnectCheckbox.UseVisualStyleBackColor = true;
-            this.ResetOnConnectCheckbox.CheckedChanged += new System.EventHandler(this.ResetOnConnectCheckbox_CheckedChanged);
             // 
             // MainForm
             // 
