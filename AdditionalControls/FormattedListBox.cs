@@ -13,15 +13,19 @@ namespace SerialTerminal.Controls
     /// </summary>
     public class FormattedListBox : ListBox
     {
+
+        public event EventHandler Redrawing;
+
         /// <summary>
         /// Constructor which sets the correct drawing modes
         /// </summary>
         public FormattedListBox()
         {
-            this.DrawMode = DrawMode.OwnerDrawFixed;
+            this.DrawMode = DrawMode.OwnerDrawVariable;
             this.ItemHeight = 18;
             this.DrawItem += this.DoDrawItem;
         }
+
         /// <summary>
         /// Draws a list box item
         /// </summary>
@@ -71,7 +75,7 @@ namespace SerialTerminal.Controls
 
             g.FillRectangle(new SolidBrush(backCol), e.Bounds);
             g.DrawString(text,
-                new Font(e.Font.FontFamily, e.Font.Size, selected ? FontStyle.Bold : FontStyle.Regular),
+                new Font(e.Font.FontFamily, e.Font.Size, selected || e.Index == 0 ? FontStyle.Bold : FontStyle.Regular),
                 new SolidBrush(foreCol),
                 this.GetItemRectangle(e.Index).Location);
             e.DrawFocusRectangle();

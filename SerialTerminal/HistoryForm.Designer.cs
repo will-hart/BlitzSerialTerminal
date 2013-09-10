@@ -32,9 +32,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.SentListBox = new SerialTerminal.Controls.FormattedListBox();
             this.HistoryToolstrip = new System.Windows.Forms.ToolStrip();
+            this.CloseButton = new System.Windows.Forms.ToolStripButton();
             this.ExportButton = new System.Windows.Forms.ToolStripButton();
             this.ReceivedListBox = new SerialTerminal.Controls.FormattedListBox();
-            this.CloseButton = new System.Windows.Forms.ToolStripButton();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.HistoryToolstrip.SuspendLayout();
@@ -70,6 +70,8 @@
             this.SentListBox.Name = "SentListBox";
             this.SentListBox.Size = new System.Drawing.Size(445, 537);
             this.SentListBox.TabIndex = 0;
+            this.SentListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.SentListBox_DrawItem);
+            this.SentListBox.SelectedIndexChanged += new System.EventHandler(this.SentListBox_SelectedIndexChanged);
             // 
             // HistoryToolstrip
             // 
@@ -82,6 +84,16 @@
             this.HistoryToolstrip.Size = new System.Drawing.Size(902, 25);
             this.HistoryToolstrip.TabIndex = 2;
             this.HistoryToolstrip.Text = "toolStrip1";
+            // 
+            // CloseButton
+            // 
+            this.CloseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.CloseButton.Image = ((System.Drawing.Image)(resources.GetObject("CloseButton.Image")));
+            this.CloseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(40, 22);
+            this.CloseButton.Text = "Close";
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // ExportButton
             // 
@@ -106,16 +118,8 @@
             this.ReceivedListBox.Name = "ReceivedListBox";
             this.ReceivedListBox.Size = new System.Drawing.Size(445, 537);
             this.ReceivedListBox.TabIndex = 3;
-            // 
-            // CloseButton
-            // 
-            this.CloseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.CloseButton.Image = ((System.Drawing.Image)(resources.GetObject("CloseButton.Image")));
-            this.CloseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(40, 22);
-            this.CloseButton.Text = "Close";
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+            this.ReceivedListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ReceivedListBox_DrawItem);
+            this.ReceivedListBox.SelectedIndexChanged += new System.EventHandler(this.ReceivedListBox_SelectedIndexChanged);
             // 
             // HistoryForm
             // 

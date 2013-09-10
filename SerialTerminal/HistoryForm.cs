@@ -47,5 +47,25 @@ namespace SerialTerminal
                 writer.Close();
             }
         }
+
+        private void SentListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.ReceivedListBox.SelectedIndex = this.SentListBox.SelectedIndex;
+        }
+
+        private void ReceivedListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.SentListBox.SelectedIndex = this.ReceivedListBox.SelectedIndex;
+        }
+
+        private void SentListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            this.ReceivedListBox.TopIndex = this.SentListBox.TopIndex;
+        }
+
+        private void ReceivedListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            this.SentListBox.TopIndex = this.ReceivedListBox.TopIndex;
+        }
     }
 }

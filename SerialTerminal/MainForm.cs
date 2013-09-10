@@ -18,12 +18,7 @@ namespace SerialTerminal
         /// A flag set to true when newlines should be appended to all serial transmissions
         /// </summary>
         private bool appendNewline = true;
-
-        /// <summary>
-        /// If true, the message will be sent as the hex value rather than the ASCII value
-        /// </summary>
-        private bool sendAsHex = false;
-
+        
         /// <summary>
         /// A serial port to use for communications
         /// </summary>
@@ -49,6 +44,11 @@ namespace SerialTerminal
         /// </summary>
         /// <param name="message"></param>
         private delegate void StringDelegate(string message);
+
+        /// <summary>
+        /// A buffer for holding serial messages until a newline is received
+        /// </summary>
+        private string serialBuffer;
 
         public MainForm()
         {
@@ -76,6 +76,8 @@ namespace SerialTerminal
             }
 
             this.messageHistory.Add("");
+
+            this.appendNewline = this.AppendNewlineCheckbox.Checked;
         }
 
         /// <summary>
@@ -87,14 +89,7 @@ namespace SerialTerminal
         private void AppendNewlineCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             this.appendNewline = this.AppendNewlineCheckbox.Checked;
-            if (this.appendNewline)
-            {
-                this.LogMessage(" - Newlines will now be appended to messages");
-            }
-            else
-            {
-                this.LogMessage(" - Newlines will not be appended to messages");
-            }
+            this.LogMessage(" - Newlines will " + (this.appendNewline ? "now" : "not") + " be appended to messages");
         }
 
         /// <summary>
@@ -112,8 +107,24 @@ namespace SerialTerminal
             } else {
                 // open a new serial port
                 this.serialPort = new SerialPort(this.ComPortComboBox.SelectedItem.ToString(), int.Parse(this.BaudRateTextBox.Text));
-                this.serialPort.Open();
+
+                try
+                {
+                    this.serialPort.Open();
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("Unable to connect to the serial port - it seems to be in use");
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("There was an error connecting to the serial port - " + ex.Message);
+                    return;
+                }
                 this.serialPort.DataReceived += OnDataReceived;
+                this.serialPort.DtrEnable = !this.serialPort.DtrEnable; // toggle DTR for a reset 
+                this.serialPort.DtrEnable = !this.serialPort.DtrEnable;
 
                 // update the UI
                 this.ConnectButton.Text = "Disconnect";
@@ -189,11 +200,12 @@ namespace SerialTerminal
                 return;
             }
 
+            // ignore empty messages
             if (this.InputTextBox.Text == "")
             {
                 return;
             }
-
+            
             // check if we have a serial port to send from
             if (this.serialPort != null && this.serialPort.IsOpen)
             {
@@ -212,8 +224,8 @@ namespace SerialTerminal
                 }
 
                 // log the sent message
-                this.LogMessage(" > " + message);
                 this.transmissionHistory.Add(new TransmissionRecord(true, message));
+                this.LogMessage(" > " + message);
 
                 // empty the text box
                 this.InputTextBox.Text = "";
@@ -275,9 +287,36 @@ namespace SerialTerminal
             if (this.serialPort.Read(data, 0, dataLength) == 0) return;
             var message = Encoding.ASCII.GetString(data, 0, dataLength);
 
-            message = message.Replace(System.Environment.NewLine, "\\n");
-            this.LogMessage(" < " + message);
-            this.transmissionHistory.Add(new TransmissionRecord(false, message));
+            // put into the buffer
+            this.serialBuffer += message;
+
+            // if we haven't received a complete message yet, return
+            if (!message.Contains(Environment.NewLine))
+            {
+                return;
+            }
+
+            // otherwise split into chunks and process
+            var split = this.serialBuffer.Split(
+                new string[] {Environment.NewLine },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            // work out if we had a trailing newline and handle it
+            if (this.serialBuffer.EndsWith(Environment.NewLine))
+            {
+                this.serialBuffer = "";
+            }
+            else
+            {
+                this.serialBuffer = split[split.Length - 1];
+                split = split.Take(split.Length - 1).ToArray();
+            }
+
+            foreach (var s in split)
+            {
+                this.LogMessage(" < " + s);
+                this.transmissionHistory.Add(new TransmissionRecord(false, s));
+            }
         }
         
         /// <summary>
@@ -288,16 +327,6 @@ namespace SerialTerminal
         private void TerminalListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             TerminalListBox.Invalidate();
-        }
-
-        /// <summary>
-        /// Called when the state of the "Convert to HEX" checkbox is changed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SendAsHexCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            this.sendAsHex = this.SendAsHexCheckbox.Checked;
         }
 
         /// <summary>

@@ -30,7 +30,6 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.HistoryButton = new System.Windows.Forms.Button();
-            this.SendAsHexCheckbox = new System.Windows.Forms.CheckBox();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.SendButton = new System.Windows.Forms.Button();
             this.InputTextBox = new System.Windows.Forms.TextBox();
@@ -52,7 +51,6 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.HistoryButton, 4, 1);
-            this.tableLayoutPanel1.Controls.Add(this.SendAsHexCheckbox, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.ConnectButton, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.SendButton, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.InputTextBox, 0, 1);
@@ -81,19 +79,6 @@
             this.HistoryButton.Text = "History";
             this.HistoryButton.UseVisualStyleBackColor = true;
             this.HistoryButton.Click += new System.EventHandler(this.HistoryButton_Click);
-            // 
-            // SendAsHexCheckbox
-            // 
-            this.SendAsHexCheckbox.AutoSize = true;
-            this.SendAsHexCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SendAsHexCheckbox.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SendAsHexCheckbox.Location = new System.Drawing.Point(603, 3);
-            this.SendAsHexCheckbox.Name = "SendAsHexCheckbox";
-            this.SendAsHexCheckbox.Size = new System.Drawing.Size(144, 24);
-            this.SendAsHexCheckbox.TabIndex = 9;
-            this.SendAsHexCheckbox.Text = "Convert to HEX";
-            this.SendAsHexCheckbox.UseVisualStyleBackColor = true;
-            this.SendAsHexCheckbox.CheckedChanged += new System.EventHandler(this.SendAsHexCheckbox_CheckedChanged);
             // 
             // ConnectButton
             // 
@@ -150,6 +135,7 @@
             // ComPortComboBox
             // 
             this.ComPortComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComPortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComPortComboBox.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComPortComboBox.FormattingEnabled = true;
             this.ComPortComboBox.Location = new System.Drawing.Point(3, 3);
@@ -209,7 +195,6 @@
         private System.Windows.Forms.CheckBox AppendNewlineCheckbox;
         private System.Windows.Forms.ComboBox ComPortComboBox;
         private System.Windows.Forms.TextBox BaudRateTextBox;
-        private System.Windows.Forms.CheckBox SendAsHexCheckbox;
         private System.Windows.Forms.Button HistoryButton;
         private Controls.FormattedListBox TerminalListBox;
     }
