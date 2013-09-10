@@ -19,6 +19,11 @@ namespace SerialTerminal
         /// A flag set to true when newlines should be appended to all serial transmissions
         /// </summary>
         private bool appendNewline = true;
+
+        /// <summary>
+        /// Sets whether the Arduino should be reset on connecting by toggling DTR enable
+        /// </summary>
+        private bool resetOnConnect = true;
         
         /// <summary>
         /// A serial port to use for communications
@@ -83,6 +88,7 @@ namespace SerialTerminal
             this.messageHistory.Add("");
 
             this.appendNewline = this.AppendNewlineCheckbox.Checked;
+            this.resetOnConnect = this.ResetOnConnectCheckbox.Checked;
         }
 
         /// <summary>
@@ -128,8 +134,12 @@ namespace SerialTerminal
                     return;
                 }
                 this.serialPort.DataReceived += OnDataReceived;
-                this.serialPort.DtrEnable = !this.serialPort.DtrEnable; // toggle DTR for a reset 
-                this.serialPort.DtrEnable = !this.serialPort.DtrEnable;
+
+                if (this.resetOnConnect)
+                {
+                    this.serialPort.DtrEnable = !this.serialPort.DtrEnable; // toggle DTR for a reset 
+                    this.serialPort.DtrEnable = !this.serialPort.DtrEnable;
+                }
 
                 // update the UI
                 this.ConnectButton.Text = "Disconnect";
@@ -393,6 +403,11 @@ namespace SerialTerminal
             var selectionIndex = this.InputTextBox.SelectionStart;
             this.InputTextBox.Text = this.InputTextBox.Text.Insert(selectionIndex, insertText);
             this.InputTextBox.SelectionStart = selectionIndex + insertText.Length;
+        }
+
+        private void ResetOnConnectCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            this.resetOnConnect = this.ResetOnConnectCheckbox.Checked; 
         }
     }
 }

@@ -51,6 +51,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.sendID0x0090ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.requestStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ResetOnConnectCheckbox = new System.Windows.Forms.CheckBox();
             this.MainTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MessageLogSplitContainer)).BeginInit();
             this.MessageLogSplitContainer.Panel1.SuspendLayout();
@@ -134,6 +135,7 @@
             this.MenuTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.MenuTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.MenuTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.MenuTableLayout.Controls.Add(this.ResetOnConnectCheckbox, 2, 0);
             this.MenuTableLayout.Controls.Add(this.ExportSessionButton, 4, 1);
             this.MenuTableLayout.Controls.Add(this.SendButton, 3, 1);
             this.MenuTableLayout.Controls.Add(this.InputTextBox, 0, 1);
@@ -321,6 +323,22 @@
             this.requestStatusToolStripMenuItem.Text = "Request &Status (0x0088)";
             this.requestStatusToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
+            // ResetOnConnectCheckbox
+            // 
+            this.ResetOnConnectCheckbox.AutoSize = true;
+            this.ResetOnConnectCheckbox.Checked = true;
+            this.ResetOnConnectCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ResetOnConnectCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ResetOnConnectCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ResetOnConnectCheckbox.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetOnConnectCheckbox.Location = new System.Drawing.Point(603, 3);
+            this.ResetOnConnectCheckbox.Name = "ResetOnConnectCheckbox";
+            this.ResetOnConnectCheckbox.Size = new System.Drawing.Size(144, 26);
+            this.ResetOnConnectCheckbox.TabIndex = 15;
+            this.ResetOnConnectCheckbox.Text = "Reset on Connect";
+            this.ResetOnConnectCheckbox.UseVisualStyleBackColor = true;
+            this.ResetOnConnectCheckbox.CheckedChanged += new System.EventHandler(this.ResetOnConnectCheckbox_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -372,5 +390,6 @@
         private System.Windows.Forms.Button ExportSessionButton;
         private System.Windows.Forms.Button SendButton;
         private System.Windows.Forms.CheckBox AppendNewlineCheckbox;
+        private System.Windows.Forms.CheckBox ResetOnConnectCheckbox;
     }
 }
