@@ -8,9 +8,9 @@ namespace SerialTerminal
 {
     internal class TransmissionRecord
     {
-        internal TransmissionRecord(bool sent, string message)
+        internal TransmissionRecord(TransmissionType typeOfTransmission, string message)
         {
-            this.Sent = sent;
+            this.TypeOfTransmission = typeOfTransmission;
             this.Message = message;
             this.Recorded = DateTime.Now;
         }
@@ -18,7 +18,7 @@ namespace SerialTerminal
         /// <summary>
         /// A flag indicating whether this message was sent or received
         /// </summary>
-        internal bool Sent
+        internal TransmissionType TypeOfTransmission
         {
             get;
             set;
@@ -45,8 +45,28 @@ namespace SerialTerminal
         /// <returns></returns>
         internal new string ToString()
         {
-            return "[" + this.Recorded.ToShortTimeString() + "]  " + 
-                    (this.Sent ? "> " : "< ") + this.Message;
+            var output = "[" + this.Recorded.ToString("HH:mm.ss") + "]  ";
+
+            switch (this.TypeOfTransmission)
+            {
+                case TransmissionType.SentMessage:
+                    output += "> ";
+                    break;
+                case TransmissionType.ReceivedMessage:
+                    output += "< ";
+                    break;
+                case TransmissionType.ApplicationMessage:
+                    output += "- ";
+                    break;
+                case TransmissionType.ApplicationError:
+                    output += "! ";
+                    break;
+                default:
+                    output += "? ";
+                    break;
+            }
+            
+            return output + this.Message;
         }
     }
 }
