@@ -42,6 +42,8 @@
             this.BaudRateTextBox = new System.Windows.Forms.TextBox();
             this.ComPortComboBox = new System.Windows.Forms.ComboBox();
             this.MessageDataTableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.InstructionTypeLabel = new System.Windows.Forms.Label();
+            this.InstructionTypeHeaderLabel = new System.Windows.Forms.Label();
             this.ayloadHeaderLabel = new System.Windows.Forms.Label();
             this.PayloadLabel = new System.Windows.Forms.Label();
             this.TimestampHeaderLabel = new System.Windows.Forms.Label();
@@ -63,9 +65,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.sendID0x0090ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.requestStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-
-            this.InstructionTypeHeaderLabel = new System.Windows.Forms.Label();
-            this.InstructionTypeLabel = new System.Windows.Forms.Label();
             this.MainTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MessageLogSplitContainer)).BeginInit();
             this.MessageLogSplitContainer.Panel1.SuspendLayout();
@@ -308,6 +307,29 @@
             this.MessageDataTableLayout.Size = new System.Drawing.Size(337, 634);
             this.MessageDataTableLayout.TabIndex = 17;
             // 
+            // InstructionTypeLabel
+            // 
+            this.InstructionTypeLabel.AutoSize = true;
+            this.InstructionTypeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InstructionTypeLabel.Font = new System.Drawing.Font("Droid Sans Mono", 10F);
+            this.InstructionTypeLabel.Location = new System.Drawing.Point(120, 60);
+            this.InstructionTypeLabel.Name = "InstructionTypeLabel";
+            this.InstructionTypeLabel.Size = new System.Drawing.Size(214, 30);
+            this.InstructionTypeLabel.TabIndex = 11;
+            this.InstructionTypeLabel.Text = " ";
+            // 
+            // InstructionTypeHeaderLabel
+            // 
+            this.InstructionTypeHeaderLabel.AutoSize = true;
+            this.InstructionTypeHeaderLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InstructionTypeHeaderLabel.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionTypeHeaderLabel.Location = new System.Drawing.Point(3, 60);
+            this.InstructionTypeHeaderLabel.Name = "InstructionTypeHeaderLabel";
+            this.InstructionTypeHeaderLabel.Size = new System.Drawing.Size(111, 30);
+            this.InstructionTypeHeaderLabel.TabIndex = 10;
+            this.InstructionTypeHeaderLabel.Text = "Instruction";
+            this.InstructionTypeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // ayloadHeaderLabel
             // 
             this.ayloadHeaderLabel.AutoSize = true;
@@ -502,29 +524,6 @@
             this.requestStatusToolStripMenuItem.Tag = "0088";
             this.requestStatusToolStripMenuItem.Text = "Request &Status (0x0088)";
             this.requestStatusToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
-            // 
-            // InstructionTypeHeaderLabel
-            // 
-            this.InstructionTypeHeaderLabel.AutoSize = true;
-            this.InstructionTypeHeaderLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InstructionTypeHeaderLabel.Font = new System.Drawing.Font("Droid Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionTypeHeaderLabel.Location = new System.Drawing.Point(3, 60);
-            this.InstructionTypeHeaderLabel.Name = "InstructionTypeHeaderLabel";
-            this.InstructionTypeHeaderLabel.Size = new System.Drawing.Size(111, 30);
-            this.InstructionTypeHeaderLabel.TabIndex = 10;
-            this.InstructionTypeHeaderLabel.Text = "Instruction";
-            this.InstructionTypeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // InstructionTypeLabel
-            // 
-            this.InstructionTypeLabel.AutoSize = true;
-            this.InstructionTypeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InstructionTypeLabel.Font = new System.Drawing.Font("Droid Sans Mono", 10F);
-            this.InstructionTypeLabel.Location = new System.Drawing.Point(120, 60);
-            this.InstructionTypeLabel.Name = "InstructionTypeLabel";
-            this.InstructionTypeLabel.Size = new System.Drawing.Size(214, 30);
-            this.InstructionTypeLabel.TabIndex = 11;
-            this.InstructionTypeLabel.Text = " ";
             // 
             // MainForm
             // 
