@@ -13,14 +13,24 @@ namespace SerialTerminal
         /// </summary>
         None = 0,
 
-        Status_Request = 8,
+        /// <summary>
+        /// The terminal is requesting an ID from the board
+        /// </summary>
+        Id_Request = 1,
 
-        Status_Response = 9,
+        /// <summary>
+        /// The board is responding to an ID request
+        /// </summary>
+        Id_Response = 2,
 
-        Id_Request = 16,
+        /// <summary>
+        /// The terminal is requesting buffer status from the board
+        /// </summary>
+        Status_Request = 3,
 
-        Id_Response = 17,
-
-        Unknown_Instruction = 31
+        /// <summary>
+        /// The board is responding with buffer information
+        /// </summary>
+        Status_Response = 4
     }
 }

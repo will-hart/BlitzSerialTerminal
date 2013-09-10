@@ -25,7 +25,7 @@ namespace SerialTerminal
         }
 
         /// <summary>
-        /// The message that was sent
+        /// The message that was sent or received
         /// </summary>
         internal string Message
         {
@@ -33,6 +33,9 @@ namespace SerialTerminal
             set;
         }
 
+        /// <summary>
+        /// When the message was created
+        /// </summary>
         internal DateTime Recorded
         {
             get;

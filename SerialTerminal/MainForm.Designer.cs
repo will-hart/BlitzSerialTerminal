@@ -327,7 +327,7 @@
             this.InstructionTypeHeaderLabel.Name = "InstructionTypeHeaderLabel";
             this.InstructionTypeHeaderLabel.Size = new System.Drawing.Size(111, 30);
             this.InstructionTypeHeaderLabel.TabIndex = 10;
-            this.InstructionTypeHeaderLabel.Text = "Instruction";
+            this.InstructionTypeHeaderLabel.Text = "Detail";
             this.InstructionTypeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ayloadHeaderLabel
@@ -469,7 +469,8 @@
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.exportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "&Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportSessionButton_Click);
             // 
@@ -481,7 +482,8 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -499,7 +501,8 @@
             // transmitData0x00C0ToolStripMenuItem
             // 
             this.transmitData0x00C0ToolStripMenuItem.Name = "transmitData0x00C0ToolStripMenuItem";
-            this.transmitData0x00C0ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.transmitData0x00C0ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.transmitData0x00C0ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.transmitData0x00C0ToolStripMenuItem.Tag = "00C0";
             this.transmitData0x00C0ToolStripMenuItem.Text = "&Transmit Data (0x00C0)";
             this.transmitData0x00C0ToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
@@ -512,17 +515,19 @@
             // sendID0x0090ToolStripMenuItem
             // 
             this.sendID0x0090ToolStripMenuItem.Name = "sendID0x0090ToolStripMenuItem";
-            this.sendID0x0090ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.sendID0x0090ToolStripMenuItem.Tag = "0090";
-            this.sendID0x0090ToolStripMenuItem.Text = "Request &ID (0x0090)";
+            this.sendID0x0090ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.sendID0x0090ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.sendID0x0090ToolStripMenuItem.Tag = "0081";
+            this.sendID0x0090ToolStripMenuItem.Text = "Request &ID (0x0081)";
             this.sendID0x0090ToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
             // requestStatusToolStripMenuItem
             // 
             this.requestStatusToolStripMenuItem.Name = "requestStatusToolStripMenuItem";
-            this.requestStatusToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.requestStatusToolStripMenuItem.Tag = "0088";
-            this.requestStatusToolStripMenuItem.Text = "Request &Status (0x0088)";
+            this.requestStatusToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.requestStatusToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.requestStatusToolStripMenuItem.Tag = "0083";
+            this.requestStatusToolStripMenuItem.Text = "Request &Status (0x0083)";
             this.requestStatusToolStripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
             // MainForm

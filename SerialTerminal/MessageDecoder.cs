@@ -37,9 +37,14 @@ namespace SerialTerminal
                 {
                     this.TypeOfInstruction = (InstructionType)(meta & 0x1F);
                 }
+                else if (this.TypeOfMessage == MessageType.Error)
+                {
+                    this.TypeOfError = (ErrorType)(meta & 0x1F);
+                }
                 else
                 {
                     this.TypeOfInstruction = InstructionType.None;
+                    this.TypeOfError = ErrorType.None;
                 }
                 
                 for (var i = 4; i >= 0; --i)
@@ -114,6 +119,15 @@ namespace SerialTerminal
         /// If this is an instruction, what type is it???
         /// </summary>
         internal InstructionType TypeOfInstruction
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// If this is an error, what type is it???
+        /// </summary>
+        internal ErrorType TypeOfError
         {
             get;
             set;

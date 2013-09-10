@@ -388,11 +388,21 @@ namespace SerialTerminal
 
                 // populate
                 this.IdLabel.Text = message.ID;
-                this.TypeLabel.Text = message.TypeOfMessage.ToString();
-                this.InstructionTypeLabel.Text = message.TypeOfInstruction.ToString().Replace("_", " ");
+                this.TypeLabel.Text = message.TypeOfMessage.ToString(); 
+                this.InstructionTypeLabel.Text = string.Empty;
                 this.FlagsLabel.Text = string.Join(" ", message.Flags.Select(o => o ? "Y" : "N"));
                 this.TimestampLabel.Text = message.Timestamp.ToString();
                 this.PayloadLabel.Text = message.Payload;
+
+                // update instruction label for specific message types
+                if (message.TypeOfMessage == MessageType.Instruction)
+                {
+                    this.InstructionTypeLabel.Text = message.TypeOfInstruction.ToString().Replace("_", " ");
+                }
+                else if (message.TypeOfMessage == MessageType.Error)
+                {
+                    this.InstructionTypeLabel.Text = message.TypeOfError.ToString().Replace("_", " ");
+                }
             }
             else
             {
