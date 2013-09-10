@@ -13,23 +13,22 @@ namespace SerialTerminal
         /// from the transmission history
         /// </summary>
         /// <param name="loggedMessage"></param>
-        internal MessageDecoder(TransmissionRecord loggedMessage)
+        internal MessageDecoder(string loggedMessage)
         {
             // decode the message, setting form properties
             this.Flags = new List<bool> { false, false, false, false, false };
-            var len = loggedMessage.Message.Length;
-            var msg = loggedMessage.Message;
+            var len = loggedMessage.Length;
 
             // sort out ID
             if (len >= 2)
             {
-                this.ID = "0x" + msg[0] + msg[1];
+                this.ID = "0x" + loggedMessage[0] + loggedMessage[1];
             }
 
             // sort out type and flags
             if (len >= 4)
             {
-                var meta = Convert.ToInt16(msg[2].ToString() + msg[3].ToString(), 16);
+                var meta = Convert.ToInt16(loggedMessage[2].ToString() + loggedMessage[3].ToString(), 16);
                 this.TypeOfMessage = (MessageType)(meta >> 5);
                 
                 // if it is an instruction get the type before we bust up the flags
@@ -58,13 +57,13 @@ namespace SerialTerminal
             // get the timestamp
             if (len >= 12)
             {
-                this.Timestamp = (long)Convert.ToInt64(msg.Substring(4, 8), 16);
+                this.Timestamp = (long)Convert.ToInt64(loggedMessage.Substring(4, 8), 16);
             }
 
             // and the rest is payload
             if (len > 12)
             {
-                this.Payload = msg.Substring(12);
+                this.Payload = loggedMessage.Substring(12);
             } else {
                 this.Payload = "empty";
             }

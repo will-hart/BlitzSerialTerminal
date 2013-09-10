@@ -11,8 +11,15 @@ namespace SerialTerminal
         internal TransmissionRecord(TransmissionType typeOfTransmission, string message)
         {
             this.TypeOfTransmission = typeOfTransmission;
-            this.Message = message;
+            this.RawMessage = message;
+            this.Message = null;
             this.Recorded = DateTime.Now;
+
+            if (typeOfTransmission == TransmissionType.ReceivedMessage ||
+                typeOfTransmission == TransmissionType.SentMessage)
+            {
+                this.Message = new MessageDecoder(this.RawMessage);
+            }
         }
 
         /// <summary>
@@ -27,7 +34,7 @@ namespace SerialTerminal
         /// <summary>
         /// The message that was sent or received
         /// </summary>
-        internal string Message
+        internal string RawMessage
         {
             get;
             set;
@@ -42,34 +49,47 @@ namespace SerialTerminal
             set;
         }
 
+        internal MessageDecoder Message
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Exports the transmission as a formatted string
         /// </summary>
         /// <returns></returns>
         internal new string ToString()
         {
-            var output = "[" + this.Recorded.ToString("HH:mm.ss") + "]  ";
+            var output = "[" + this.Recorded.ToString("HH:mm.ss") + "] ";
 
             switch (this.TypeOfTransmission)
             {
                 case TransmissionType.SentMessage:
-                    output += "> ";
+                    output += " > ";
                     break;
                 case TransmissionType.ReceivedMessage:
-                    output += "< ";
+                    if (this.Message.TypeOfMessage == MessageType.Error)
+                    {
+                        output += "<! ";
+                    }
+                    else
+                    {
+                        output += " < ";
+                    }
                     break;
                 case TransmissionType.ApplicationMessage:
-                    output += "- ";
+                    output += " - ";
                     break;
                 case TransmissionType.ApplicationError:
-                    output += "! ";
+                    output += " ! ";
                     break;
                 default:
-                    output += "? ";
+                    output += " ? ";
                     break;
             }
             
-            return output + this.Message;
+            return output + this.RawMessage;
         }
     }
 }

@@ -384,7 +384,7 @@ namespace SerialTerminal
                 this.transmissionHistory[idx].TypeOfTransmission != TransmissionType.ApplicationMessage &&
                 this.transmissionHistory[idx].TypeOfTransmission != TransmissionType.ApplicationError)
             {
-                var message = new MessageDecoder(this.transmissionHistory[idx]);
+                var message = this.transmissionHistory[idx].Message;
 
                 // populate
                 this.IdLabel.Text = message.ID;
