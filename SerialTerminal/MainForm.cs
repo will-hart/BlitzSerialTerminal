@@ -72,6 +72,23 @@ namespace SerialTerminal
         /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.PrepareSerialPorts();
+
+            this.messageHistory.Add("");
+            this.transmissionHistory.Add(new TransmissionRecord(TransmissionType.ApplicationMessage, "Starting terminal..."));
+
+            this.appendNewline = this.AppendNewlineCheckbox.Checked;
+            this.resetOnConnect = this.ResetOnConnectCheckbox.Checked;
+        }
+
+        /// <summary>
+        /// Sets up the combo box with the available serial ports
+        /// </summary>
+        private void PrepareSerialPorts()
+        {
+            // clear existing items 
+            this.ComPortComboBox.Items.Clear();
+
             // set com ports into combo box
             string[] ports = SerialPort.GetPortNames();
             foreach (var port in ports)
@@ -84,12 +101,6 @@ namespace SerialTerminal
             {
                 this.ComPortComboBox.SelectedIndex = 0;
             }
-
-            this.messageHistory.Add("");
-            this.transmissionHistory.Add(new TransmissionRecord(TransmissionType.ApplicationMessage, "Starting terminal..."));
-
-            this.appendNewline = this.AppendNewlineCheckbox.Checked;
-            this.resetOnConnect = this.ResetOnConnectCheckbox.Checked;
         }
 
         /// <summary>
@@ -119,6 +130,13 @@ namespace SerialTerminal
             if (this.ConnectButton.Text == "Disconnect") {
                 this.ConnectButton.Text = "Connect";
             } else {
+                // check if we have a serial port selected 
+                if (this.ComPortComboBox.SelectedIndex == -1)
+                {
+                    this.LogMessage("Unable to connect - no port specified!", TransmissionType.ApplicationError);
+                    return;
+                }
+
                 // update the UI
                 this.ConnectButton.Text = "Disconnect";
 
@@ -244,14 +262,28 @@ namespace SerialTerminal
                 this.messageHistory.Insert(1, message); // log at position 1 so blank text is always first
                 this.historyIndex = 0;
 
-                // send the message
-                if (this.appendNewline)
+                try
                 {
-                    this.serialPort.WriteLine(message);
+                    // send the message
+                    if (this.appendNewline)
+                    {
+                        this.serialPort.WriteLine(message);
+                    }
+                    else
+                    {
+                        this.serialPort.Write(message);
+                    }
                 }
-                else
+                catch (IOException)
                 {
-                    this.serialPort.Write(message);
+                    this.LogMessage("Unable to send serial - the connection has closed", TransmissionType.ApplicationError);
+                    this.DisconnectSerial();
+                    return;
+                }
+                catch (Exception e)
+                {
+                    this.LogMessage("Error - " + e.Message + ". Please try again", TransmissionType.ApplicationError);
+                    return;
                 }
 
                 // log the sent message
@@ -406,6 +438,7 @@ namespace SerialTerminal
             }
             else
             {
+                // clear the fields
                 this.IdLabel.Text = string.Empty;
                 this.TypeLabel.Text = string.Empty;
                 this.InstructionTypeLabel.Text = string.Empty;
@@ -450,18 +483,48 @@ namespace SerialTerminal
             Application.Exit();
         }
 
+        /// <summary>
+        /// Handles general message sending from the menu by exctracting the button tag
+        /// and queueing it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InsertMessageToolBarItem_Click(object sender, EventArgs e)
         {
-            var insertText = ((ToolStripMenuItem)sender).Tag.ToString();
+            this.QueueMessage(((ToolStripMenuItem)sender).Tag.ToString());
+        }
+
+        /// <summary>
+        /// Queues a message for sending and focuses on the text box so you can hit enter to send
+        /// </summary>
+        /// <param name="insertText">The text to insert</param>
+        private void QueueMessage(string insertText)
+        {
             var selectionIndex = this.InputTextBox.SelectionStart;
             this.InputTextBox.Text = this.InputTextBox.Text.Insert(selectionIndex, insertText);
             this.InputTextBox.SelectionLength = insertText.Length;
             this.InputTextBox.Focus();
         }
 
+        /// <summary>
+        /// Handles toggling of the reset on connect checkbox.  This allows the user to automatically reset
+        /// the Arduino on connection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetOnConnectCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             this.resetOnConnect = this.ResetOnConnectCheckbox.Checked;
+        }
+
+        /// <summary>
+        /// Allows user to refresh the serial ports if they have just plugged a device in
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RefreshSerialPortsMenuItem_Click(object sender, EventArgs e)
+        {
+            this.PrepareSerialPorts();
         }
     }
 }
