@@ -568,9 +568,9 @@
             // 
             this.setMotorTo45Degrees0085ToolstripMenuItem.Name = "setMotorTo45Degrees0085ToolstripMenuItem";
             this.setMotorTo45Degrees0085ToolstripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
-            this.setMotorTo45Degrees0085ToolstripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.setMotorTo45Degrees0085ToolstripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.setMotorTo45Degrees0085ToolstripMenuItem.Tag = "0085002D";
-            this.setMotorTo45Degrees0085ToolstripMenuItem.Text = "Set Motor To 45 degrees (0x0085002D)";
+            this.setMotorTo45Degrees0085ToolstripMenuItem.Text = "Set Motor To 45 (0x0085002D)";
             this.setMotorTo45Degrees0085ToolstripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
             // toolStripSeparator3
@@ -600,27 +600,27 @@
             // 
             this.setMotorTo0Degrees0085ToolstripMenuItem.Name = "setMotorTo0Degrees0085ToolstripMenuItem";
             this.setMotorTo0Degrees0085ToolstripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
-            this.setMotorTo0Degrees0085ToolstripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.setMotorTo0Degrees0085ToolstripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.setMotorTo0Degrees0085ToolstripMenuItem.Tag = "00850000";
-            this.setMotorTo0Degrees0085ToolstripMenuItem.Text = "Set Motor To 0 degrees (0x00850000)";
+            this.setMotorTo0Degrees0085ToolstripMenuItem.Text = "Set Motor To 0 (0x00850000)";
             this.setMotorTo0Degrees0085ToolstripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
             // setMotorTo30Degrees0085ToolstripMenuItem
             // 
             this.setMotorTo30Degrees0085ToolstripMenuItem.Name = "setMotorTo30Degrees0085ToolstripMenuItem";
             this.setMotorTo30Degrees0085ToolstripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
-            this.setMotorTo30Degrees0085ToolstripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.setMotorTo30Degrees0085ToolstripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.setMotorTo30Degrees0085ToolstripMenuItem.Tag = "0085001E";
-            this.setMotorTo30Degrees0085ToolstripMenuItem.Text = "Set Motor To 30 degrees (0x0085001E)";
+            this.setMotorTo30Degrees0085ToolstripMenuItem.Text = "Set Motor To 30 (0x0085001E)";
             this.setMotorTo30Degrees0085ToolstripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
             // setMotorTo15Degrees0085ToolstripMenuItem
             // 
             this.setMotorTo15Degrees0085ToolstripMenuItem.Name = "setMotorTo15Degrees0085ToolstripMenuItem";
             this.setMotorTo15Degrees0085ToolstripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
-            this.setMotorTo15Degrees0085ToolstripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.setMotorTo15Degrees0085ToolstripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.setMotorTo15Degrees0085ToolstripMenuItem.Tag = "0085000F";
-            this.setMotorTo15Degrees0085ToolstripMenuItem.Text = "Set Motor To 15 degrees (0x0085000F)";
+            this.setMotorTo15Degrees0085ToolstripMenuItem.Text = "Set Motor To 15 (0x0085000F)";
             this.setMotorTo15Degrees0085ToolstripMenuItem.Click += new System.EventHandler(this.InsertMessageToolBarItem_Click);
             // 
             // MainForm
